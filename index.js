@@ -9,14 +9,11 @@ const trainees = require('./routes/trainees');
 
 // App initializing
 const app = express();
-require('./startup/prod')(app);
+require('dotenv').config();
 
 // Connecting to the db
 mongoose
-	.connect(
-		'mongodb+srv://odedatias1:AIaI2IDdHsIvYgVH@fitupcluster.hehwcmn.mongodb.net/?retryWrites=true&w=majority',
-		{ useNewUrlParser: true, useUnifiedTopology: true }
-	)
+	.connect(process.env.MONGO_CONNECTION_STRING)
 	.then(() => console.log('Connected to FitUp DB ...'))
 	.catch(() => console.error('Could not connect to FitUp DB ...'));
 
