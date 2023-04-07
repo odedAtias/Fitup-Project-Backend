@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 	res.send(trainees);
 });
 
-// Get to specific trainer data for trainers users (for e.g after login case)
+// Get to specific trainee data for trainers users (for e.g after login case)
 router.get('/:userId', async (req, res) => {
 	const trainee = await Trainee.findOne({ userId: req.params.userId })
 		.populate({

@@ -71,7 +71,7 @@ const validateEvent = event => {
 		city: Joi.string().min(2).max(45).required(),
 		maxParticipants: Joi.number().required(),
 		participants: Joi.array().items(Joi.objectId()).default([]),
-		description: Joi.string().min(10).max(50).required(),
+		description: Joi.string().min(10).max(200).required(),
 		price: Joi.number().min(0).required(),
 	});
 	return schema.validate(event);
