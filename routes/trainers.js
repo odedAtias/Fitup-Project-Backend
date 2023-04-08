@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get to specific trainer data for trainers users (for e.g after login case)
-router.get('/:userId', async (req, res) => {
+router.get('/login/:userId', async (req, res) => {
 	const trainer = await Trainer.findOne({ userId: req.params.userId }).populate(
 		{
 			path: 'events',
@@ -36,7 +36,7 @@ router.get('/:userId', async (req, res) => {
 	);
 	// Case 404 checking
 	if (!trainer)
-		return res.status(404).send('The trainee with the given ID was not found.');
+		return res.status(404).send('The trainer with the given ID was not found.');
 	// Match case
 	res.send(trainer);
 });
