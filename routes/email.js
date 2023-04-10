@@ -9,17 +9,17 @@ const sendEmail = async (email, subject, text) => {
 		port: 465,
 		secure: true,
 		auth: {
-			from: 'fitup.help@gmail.com', // replace with your email address
+			from: 'fitup.help@gmail.com',
 			user: 'fitup.help@gmail.com',
 			pass: 'nhtqlxhxynsenriu',
 		},
 	});
 
 	const mailOptions = {
-		from: 'fitup.help@gmail.com', // replace with your email address
-		to: email, // replace with recipient email address
-		subject: subject, // replace with email subject
-		text: text, // replace with email content
+		from: 'fitup.help@gmail.com',
+		to: email,
+		subject: subject,
+		text: text,
 	};
 
 	// send email
