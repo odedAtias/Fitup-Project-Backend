@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const events = require('./routes/events');
 const trainers = require('./routes/trainers');
 const trainees = require('./routes/trainees');
+const email = require('./routes/email');
 
 // App initializing
 const app = express();
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use('/api/events', events);
 app.use('/api/trainers', trainers);
 app.use('/api/trainees', trainees);
+app.use('/send-email', email);
 
 // Port initialize
 const port = process.env.PORT || 3000;
