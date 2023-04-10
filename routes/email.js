@@ -9,7 +9,6 @@ const sendEmail = async (email, subject, text) => {
 		port: 465,
 		secure: true,
 		auth: {
-			from: 'fitup.help@gmail.com',
 			user: 'fitup.help@gmail.com',
 			pass: 'nhtqlxhxynsenriu',
 		},
@@ -20,6 +19,7 @@ const sendEmail = async (email, subject, text) => {
 		to: email,
 		subject: subject,
 		text: text,
+		replyTo: 'fitup.help@gmail.com',
 	};
 
 	// send email
