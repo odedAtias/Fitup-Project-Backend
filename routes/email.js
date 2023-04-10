@@ -19,7 +19,7 @@ const sendEmail = async (email, subject, text) => {
 		from: 'fitup.help@gmail.com', // replace with your email address
 		to: email, // replace with recipient email address
 		subject: subject, // replace with email subject
-		text : text, // replace with email content
+		text: text, // replace with email content
 	};
 
 	// send email
@@ -35,10 +35,10 @@ const sendEmail = async (email, subject, text) => {
 // Route to handle sending email
 router.post('/', async (req, res) => {
 	// get email and message data from request body
-
+	const { email, subject, text } = req.body;
 	try {
 		// call sendEmail function
-		await sendEmail();
+		await sendEmail(email, subject, text);
 
 		// send response indicating email was sent successfully
 		res.status(200).send({ message: 'Email sent successfully!' });
