@@ -32,12 +32,12 @@ router.get('/:userId', async (req, res) => {
 		.populate({
 			path: 'registeredEvents',
 			select: '-__v',
-			model: 'Trainee',
+			model: 'Event',
 		})
 		.populate({
 			path: 'favoriteTrainers',
 			select: '-_userId -__v',
-			model: 'Trainee',
+			model: 'Trainer',
 		});
 	// Case 404 checking
 	if (!trainee)
