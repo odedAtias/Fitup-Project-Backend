@@ -44,6 +44,18 @@ const Trainee = mongoose.model(
 			min: 0,
 			default: '',
 		},
+		height: {
+			type: Number,
+			min: 140,
+			max: 220,
+			required: true,
+		},
+		weight: {
+			type: Number,
+			min: 30,
+			max: 200,
+			required: true,
+		},
 	})
 );
 
@@ -53,10 +65,12 @@ const validateTrainee = trainee => {
 		userId: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{28}$')),
 		firstName: Joi.string().min(2).required(),
 		lastName: Joi.string().min(2).required(),
-		email: Joi.string().email({ minDomainSegments: 2 }).required(),
+		email: Joi.string().email({minDomainSegments: 2}).required(),
 		registeredEvents: Joi.array().items(Joi.objectId()).default([]),
 		favoriteTrainers: Joi.array().items(Joi.objectId()).default([]),
 		image: Joi.string().min(0),
+		height: Joi.number().min(140).max(220),
+		weight: Joi.number().min(30).max(200),
 	});
 	return schema.validate(trainee);
 };
