@@ -48,13 +48,11 @@ const Trainee = mongoose.model(
 			type: Number,
 			min: 140,
 			max: 220,
-			required: true,
 		},
 		weight: {
 			type: Number,
 			min: 30,
 			max: 200,
-			required: true,
 		},
 	})
 );
