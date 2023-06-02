@@ -28,6 +28,7 @@ const Trainee = mongoose.model(
 			match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
 			lowercase: true,
 			required: true,
+			unique: true,
 		},
 		registeredEvents: {
 			type: [mongoose.Schema.Types.ObjectId],
