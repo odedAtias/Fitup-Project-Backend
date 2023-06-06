@@ -46,6 +46,16 @@ const Trainer = mongoose.model(
 			min: 0,
 			default: '',
 		},
+		height: {
+			type: Number,
+			min: 140,
+			max: 220,
+		},
+		weight: {
+			type: Number,
+			min: 30,
+			max: 200,
+		},
 	})
 );
 
@@ -60,6 +70,8 @@ const validateTrainer = trainer => {
 		events: Joi.array().items(Joi.objectId()).default([]),
 		description: Joi.string().max(300).default(''),
 		image: Joi.string().min(0).default(''),
+		height: Joi.number().min(140).max(220),
+		weight: Joi.number().min(30).max(200),
 	});
 	return schema.validate(trainer);
 };
