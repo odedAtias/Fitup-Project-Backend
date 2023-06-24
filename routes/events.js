@@ -3,13 +3,13 @@ const express = require('express');
 const router = express.Router();
 
 // Custom modules & API imports
-const { Event, validate } = require('../models/event');
-const { Trainer } = require('../models/trainer');
+const {Event, validate} = require('../models/event');
+const {Trainer} = require('../models/trainer');
 
 // Create a new event
 router.post('/', async (req, res) => {
 	// Case 400 checking
-	const { error } = validate(req.body);
+	const {error} = validate(req.body);
 	if (error) return res.status(400).send(error.details[0].message);
 
 	// Case 404 checking
@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
 // Get all the events
 router.get('/', async (req, res) => {
 	const events = await Event.find()
-		.populate('trainer', 'firstName lastName')
+		.populate('trainer', 'firstName lastName image')
 		.populate({
 			path: 'participants',
 			select: 'firstName lastName image',
@@ -54,7 +54,7 @@ router.get('/:id', async (req, res) => {
 // Update an existing event by her id
 router.put('/:id', async (req, res) => {
 	// Case 400 checking
-	const { error } = validate(req.body);
+	const {error} = validate(req.body);
 	if (error) return res.status(400).send(error.details[0].message);
 
 	const event = await Event.findByIdAndUpdate(req.params.id, req.body, {

@@ -59,7 +59,7 @@ const Trainer = mongoose.model(
 	})
 );
 
-// Trainer schema validator function
+// Trainer schemas validator function
 const validateTrainer = trainer => {
 	const schema = Joi.object({
 		_id: Joi.objectId(),
