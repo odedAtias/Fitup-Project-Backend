@@ -56,6 +56,11 @@ const Trainer = mongoose.model(
 			min: 30,
 			max: 200,
 		},
+		timeStamp: {
+			type: String,
+			required: true,
+			match: /^\d{2}\/\d{2}\/\d{4}$/,
+		},
 	})
 );
 
@@ -72,6 +77,9 @@ const validateTrainer = trainer => {
 		image: Joi.string().min(0).default(''),
 		height: Joi.number().min(140).max(220),
 		weight: Joi.number().min(30).max(200),
+		timeStamp: Joi.string()
+			.pattern(new RegExp('^\\d{2}/\\d{2}/\\d{4}$'))
+			.required(),
 	});
 	return schema.validate(trainer);
 };

@@ -18,6 +18,7 @@ mongoose
 	.then(() => console.log('Connected to FitUp DB ...'))
 	.catch(() => console.error('Could not connect to FitUp DB ...'));
 
+
 // App middlewares
 app.use(express.json());
 app.use('/api/events', events);
