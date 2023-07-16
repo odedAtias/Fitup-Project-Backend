@@ -86,9 +86,10 @@ router.delete('/:id/:eid', async (req, res) => {
 		weight,
 	} = trainee;
 
-	const events = registeredEvents.filter(
-		e => e._id.toString() !== req.params.eid
-	);
+	const events = registeredEvents.filter(e => {
+		console.log(e._id.toString(), req.params.eid);
+		return e._id.toString() !== req.params.eid;
+	});
 
 	const body = {
 		firstName: firstName,
