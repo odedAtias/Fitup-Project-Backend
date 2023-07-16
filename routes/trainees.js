@@ -3,12 +3,12 @@ const express = require('express');
 const router = express.Router();
 
 // Custom modules & API imports
-const { Trainee, validate } = require('../models/trainee');
+const {Trainee, validate} = require('../models/trainee');
 
 // Create a new trainer
 router.post('/', async (req, res) => {
 	// Case 400 checking
-	const { error } = validate(req.body);
+	const {error} = validate(req.body);
 	if (error) return res.status(400).send(error.details[0].message);
 
 	// Match case
@@ -28,13 +28,11 @@ router.get('/', async (req, res) => {
 
 // Get to specific trainee data for trainers users (for e.g after login case)
 router.get('/:userId', async (req, res) => {
-	const trainee = await Trainee.findOne({ userId: req.params.userId }).populate(
-		{
-			path: 'favoriteTrainers',
-			select: '-_userId -__v',
-			model: 'Trainer',
-		}
-	);
+	const trainee = await Trainee.findOne({userId: req.params.userId}).populate({
+		path: 'favoriteTrainers',
+		select: '-_userId -__v',
+		model: 'Trainer',
+	});
 	// Case 404 checking
 	if (!trainee)
 		return res.status(404).send('The trainee with the given ID was not found.');
@@ -45,7 +43,7 @@ router.get('/:userId', async (req, res) => {
 // Update an existing trainee
 router.put('/:id', async (req, res) => {
 	// Case 400 checking
-	const { error } = validate(req.body);
+	const {error} = validate(req.body);
 	if (error) return res.status(400).send(error.details[0].message);
 
 	const trainee = await Trainee.findByIdAndUpdate(req.params.id, req.body, {
@@ -66,6 +64,21 @@ router.delete('/:id', async (req, res) => {
 		return res.status(404).send('The trainee with the given ID was not found.');
 	// Match case
 	res.send(trainee);
+});
+
+// Delete event from trainee
+router.delete('/:id/:eid', async (req, res) => {
+	const trainee = await Trainee.findOne({_id: req.params.id});
+	// Case 404 checking
+	if (!trainee)
+		return res.status(404).send('The trainee with the given ID was not found.');
+	// Match case	
+	const events = trainee.registeredEvents.filter(e => e._id !== req.params.eid);
+	const body = {...trainee, events: events};
+	// Updating the collection
+	await Trainee.findByIdAndUpdate(req.params.id, body, {
+		new: true,
+	});
 });
 
 module.exports = router;
