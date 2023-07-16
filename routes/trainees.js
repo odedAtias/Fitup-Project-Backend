@@ -75,7 +75,6 @@ router.delete('/:id/:eid', async (req, res) => {
 		return res.status(404).send('The trainee with the given ID was not found.');
 
 	const {
-		userId,
 		firstName,
 		lastName,
 		email,
@@ -89,29 +88,20 @@ router.delete('/:id/:eid', async (req, res) => {
 
 	const events = registeredEvents.filter(
 		e => e._id.toString() !== req.params.eid
-	); // Convert ObjectId to string for comparison
-
-	// Updating the collection
-	const result = await Trainee.findByIdAndUpdate(
-		req.params.id,
-		{
-			userId: userId,
-			firstName: firstName,
-			lastName: lastName,
-			email: email,
-			favoriteTrainers: favoriteTrainers,
-			image: image,
-			registeredEvents: events,
-			timeStamp: timeStamp,
-			height: height,
-			weight: weight,
-		},
-		{
-			new: true,
-		}
 	);
 
-	res.send(result);
+	const body = {
+		firstName: firstName,
+		lastName: lastName,
+		email: email,
+		favoriteTrainers: favoriteTrainers,
+		registeredEvents: events,
+		timeStamp: timeStamp,
+	};
+	// Updating the collection
+	await Trainee.findByIdAndUpdate(req.params.id, body, {
+		new: true,
+	});
 });
 
 module.exports = router;
