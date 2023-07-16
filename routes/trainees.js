@@ -69,13 +69,13 @@ router.delete('/:id', async (req, res) => {
 // Delete event from trainee
 router.delete('/:id/:eid', async (req, res) => {
 	const trainee = await Trainee.findOne({_id: req.params.id});
+
 	// Case 404 checking
 	if (!trainee)
 		return res.status(404).send('The trainee with the given ID was not found.');
-	// Match case
+
 	const {
 		userId,
-		_id,
 		firstName,
 		lastName,
 		email,
@@ -87,13 +87,15 @@ router.delete('/:id/:eid', async (req, res) => {
 		weight,
 	} = trainee;
 
-	const events = registeredEvents.filter(e => e._id !== req.params.eid);
+	const events = registeredEvents.filter(
+		e => e._id.toString() !== req.params.eid
+	); // Convert ObjectId to string for comparison
+
 	// Updating the collection
 	const result = await Trainee.findByIdAndUpdate(
 		req.params.id,
 		{
 			userId: userId,
-			_id: _id,
 			firstName: firstName,
 			lastName: lastName,
 			email: email,
@@ -108,6 +110,7 @@ router.delete('/:id/:eid', async (req, res) => {
 			new: true,
 		}
 	);
+
 	res.send(result);
 });
 
